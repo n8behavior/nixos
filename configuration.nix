@@ -6,6 +6,8 @@ in
 {
   imports = [ ./hardware-configuration.nix ];
 
+  console.keyMap = "dvorak";
+
   ################################################################
   # Bootloader
   ################################################################
@@ -48,33 +50,60 @@ in
     fontconfig
     wofi
     git vim
+    firefox
   ];
 
-  # We’re not running X.org
-  services.xserver.enable = false;
-
-  hardware.graphics.enable = true;
-  hardware.amdgpu.amdvlk.enable = true;
-
   ################################################################
-  # Drop-in Sway config
+  # Sway config
   ################################################################
-  environment.etc."sway/config".text = ''
-    # modifier key
-    set $mod Mod4
-
-    # launch terminal
-    bindsym $mod+Return exec alacritty
-
-    # Dvorak layout + Caps→Ctrl
+  programs.sway.enable = true;
+  environment.etc."sway/config.d/10-input.conf".text = ''
     input * {
       xkb_layout  us
       xkb_variant dvorak
       xkb_options ctrl:nocaps
     }
-
-    # …you can add more sway bindings here…
+    # launch terminal
+    bindsym $mod+Return exec alacritty
   '';
 
-  console.keyMap = "dvorak";
+  ################################################################
+  # Graphics stuff
+  ################################################################
+  # We’re not running X.org
+  services.xserver.enable = false;
+
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+    #extraPackages = with pkgs; [
+    #  vulkan-tools
+    #  gamescope
+    #  mangohud
+    #];
+    #extraPackages32 = with pkgs.pkgsi686Linux; [
+    #  vulkan-tools
+    #];
+  #hardware.amdgpu.amdvlk.enable = true;
+  };
+
+  ################################################################
+  # Sound stuff
+  ################################################################
+  services.pipewire.enable = true;
+  services.pipewire.pulse.enable = true;
+  ################################################################
+  # Steam stuff
+  ################################################################
+  nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnfreePredicate = pkg:
+  #  builtins.elem  ( lib.getName pkg ) [
+  #    "steam"
+  #    "steam-original"
+  #    "steam-unwrapped"
+  #    "steam-run"
+  #  ];
+  programs.steam.enable = true;
+  programs.steam.gamescopeSession.enable = true;
+  
 }
