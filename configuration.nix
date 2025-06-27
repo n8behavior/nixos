@@ -49,7 +49,9 @@ in
     nerd-fonts.ubuntu-mono
     fontconfig
     wofi
-    git vim
+    git 
+    gh
+    vim
     firefox
   ];
 
