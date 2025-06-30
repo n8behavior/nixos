@@ -15,6 +15,7 @@ in
   hardware.graphics.enable32Bit = true;
   networking.hostName       = "thelio";
   networking.networkmanager.enable = true;
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;
