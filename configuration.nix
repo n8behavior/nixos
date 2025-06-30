@@ -9,7 +9,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.systemd-boot.enable      = true;
   console.keyMap = "dvorak";
-  environment.systemPackages = with pkgs; [ alacritty discord firefox fontconfig gh git nerd-fonts.ubuntu-mono sway vim wayland-utils wofi xclip wl-clipboard-x11 ];
+  environment.systemPackages = with pkgs; [ alacritty discord firefox fontconfig gh git nerd-fonts.ubuntu-mono sway vim wayland-utils wofi xclip wl-clipboard-x11 unzip ];
   hardware.amdgpu.amdvlk.enable = false;
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
@@ -26,6 +26,7 @@ in
   services.pipewire.pulse.enable = true;
   services.xserver.desktopManager.xfce.enable = true;
   services.xserver.displayManager.lightdm.enable = true;
+  services.xserver.displayManager.setupCommands = "${pkgs.xorg.xrandr}/bin/xrandr --output DP-3 --mode 3440x1440 --rate 120.00";
   services.xserver.displayManager.defaultSession = "xfce";
   services.xserver.enable = true;
   services.xserver.layout = "us";
