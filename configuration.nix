@@ -41,12 +41,11 @@ in
   services.pipewire.pulse.enable = true;
   services.printing.enable = true;
   services.pulseaudio.enable = false;
-  services.xserver.desktopManager.gnome.enable = true;
-  services.xserver.displayManager.defaultSession = "gnome";
-  services.xserver.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
+  services.displayManager.defaultSession = "gnome";
+  services.displayManager.gdm.enable = true;
   services.xserver.displayManager.setupCommands = "${pkgs.xorg.xrandr}/bin/xrandr --output DP-3 --mode 3440x1440 --rate 120.00";
   services.xserver.enable = true;
-  services.xserver.layout = "us";
   services.xserver.xkb.layout = "us";
   services.xserver.xkb.variant = "dvorak";
   services.xserver.xkb.options = "ctrl:nocaps";
